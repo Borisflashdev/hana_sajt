@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hana Slijepčević - Školski Projekat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f8f9fa;
+            color: #2c3e50;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        #snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: white;
+            font-size: 1em;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh); }
+        }
+
+        header {
+            background-color: #d42426;
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 5px solid #f8b229;
+        }
+
+        .logo {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #f8b229;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            nav ul {
+                margin-top: 15px;
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        section {
+            padding: 4rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 3rem;
+            color: #165b33;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* Pocetna */
+        #home {
+            text-align: center;
+            background: linear-gradient(rgba(22, 91, 51, 0.8), rgba(22, 91, 51, 0.8)), 
+                        url('https://images.unsplash.com/photo-1544967082-d9d25d867d66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            border-radius: 0 0 50% 50% / 20px;
+            padding: 6rem 2rem;
+        }
+
+        #home h1 {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        #home p {
+            font-size: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* O Meni */
+        #about {
+            background-color: white;
+            border-radius: 15px;
+            margin-top: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .about-content {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        #gallery {
+            text-align: center;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 2px solid #d42426;
+        }
+
+        #christmas-card {
+            background-color: #fff5f5;
+            border-radius: 15px;
+            perspective: 1000px;
+            padding-bottom: 4rem;
+        }
+
+        .card-container {
+            width: 300px;
+            height: 400px;
+            margin: 0 auto;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+            cursor: pointer;
+        }
+
+        .card-container:hover {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            border: 5px solid #f8b229;
+        }
+
+        .card-front {
+            background-color: #d42426;
+            color: white;
+        }
+
+        .card-front h3 {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .card-front .icon {
+            font-size: 4rem;
+        }
+
+        .instruction {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .card-back {
+            background-color: white;
+            color: #165b33;
+            transform: rotateY(180deg);
+            padding: 20px;
+            text-align: center;
+            background-image: radial-gradient(#e0e0e0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .card-back p {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 1.5rem;
+            line-height: 1.4;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #165b33;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            border-top: 5px solid #f8b229;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="snow-container"></div>
+
+    <header>
+        <div class="logo">🎄 Hana Slijepčević</div>
+        <nav>
+            <ul>
+                <li><a href="#home">POČETNA</a></li>
+                <li><a href="#about">O MENI</a></li>
+                <li><a href="#gallery">GALERIJA</a></li>
+                <li><a href="#christmas-card">ČESTITKA</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home">
+        <h1>Srećan Božić!</h1>
+        <p>Dobrodošli na moj školski projekat. Nadam se da ćete uživati u prazničnoj atmosferi!</p>
+    </section>
+
+    <section id="about">
+        <h2>O Meni</h2>
+        <div class="about-content">
+            <p>Ćao, ja sam Hana Slijepčević! Dobrodošli na moj sajt. Napravila sam ovu stranicu za školski projekat da proslavimo zimske praznike. Volim Božić zbog ukrasa, kolača i vremena provedenog sa porodicom. Moja omiljena aktivnost je kićenje jelke!</p>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2>Praznična Galerija</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1576919228236-a097c32a58be?auto=format&fit=crop&w=400&q=80" 
+                     alt="Bozicni Kolaci" 
+                     onerror="this.src='https://placehold.co/400x300/c0392b/ffffff?text=Kolacici'">
+                <p style="margin-top: 10px; font-weight:bold; color: #165b33;">Ukusni Kolačići</p>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&w=400&q=80" 
+                     alt="Bozicna Jelka"
+                     onerror="this.src='https://placehold.co/400x300/165b33/ffffff?text=Jelka'">
+                <p style="margin-top: 10px; font-weight:bold; color: #165b33;">Jelka</p>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=400&q=80" 
+                     alt="Sneg"
+                     onerror="this.src='https://placehold.co/400x300/f1c40f/ffffff?text=Sneg'">
+                <p style="margin-top: 10px; font-weight:bold; color: #165b33;">Zimski Dani</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interaktivna Cestitka -->
+    <section id="christmas-card">
+        <h2>Moja Čestitka</h2>
+        <p style="text-align: center; margin-bottom: 20px;">(Pređi mišem preko čestitke da je otvoriš!)</p>
+        
+        <div class="card-container">
+            <!-- Prednja strana -->
+            <div class="card-face card-front">
+                <div class="icon">🎅</div>
+                <h3>Srećni Praznici</h3>
+                <div class="icon">❄️</div>
+                <div class="instruction">Od: Hane</div>
+            </div>
+            <!-- Zadnja strana -->
+            <div class="card-face card-back">
+                <p>Dragi Prijatelji i Nastavnici,</p>
+                <br>
+                <p>Želim vam sezonu punu svetlosti i smeha za vas i vašu porodicu.</p>
+                <br>
+                <p>✨ Srećan Božić! ✨</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Hana Slijepčević. Školski Projekat.</p>
+    </footer>
+
+    <!-- JavaScript za sneg -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const snowContainer = document.getElementById('snow-container');
+            const snowflakeCount = 50; 
+
+            const chars = ['❄', '❅', '❆', '•'];
+
+            for (let i = 0; i < snowflakeCount; i++) {
+                const flake = document.createElement('div');
+                flake.classList.add('snowflake');
+                
+                flake.innerText = chars[Math.floor(Math.random() * chars.length)];
+                
+                flake.style.left = Math.random() * 100 + 'vw';
+                flake.style.opacity = Math.random();
+                flake.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                
+                const duration = Math.random() * 5 + 5 + 's';
+                const delay = Math.random() * 5 + 's';
+                
+                flake.style.animationDuration = duration;
+                flake.style.animationDelay = delay;
+
+                snowContainer.appendChild(flake);
+            }
+        });
+    </script>
+</body>
+</html>
